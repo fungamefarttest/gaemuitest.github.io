@@ -1,102 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Source Viewer UI</title>
+  <title>GUI Example</title>
   <style>
-    #uiContainer {
-      position: absolute;
-      top: 500px;
-      left: 500px;
-      width: 1000px;
-      height: 1000px;
-      background-color: #f1f1f1;
-      border: 1px solid #ccc;
-      cursor: move;
+    #main-box {
+      width: 200px;
+      height: 200px;
+      background-color: blue;
+      border-radius: 10px;
+    }
+
+    .button {
+      width: 100px;
+      height: 40px;
+      background-color: darkblue;
+      color: white;
+      border-radius: 10px;
+      font-family: "Titan One", sans-serif;
+      margin-bottom: 10px;
+    }
+
+    #close-button {
+      float: right;
+      width: 40px;
+      height: 40px;
+      background-color: red;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div id="uiContainer">
-    <!-- Your UI content here -->
-    <h2>Viewer</h2>
-    <p>Created by thecoolgaems</p>
-
-    <button id="showScriptButton">Show HTML Script</button>
-    <button id="copyCodeButton">Copy Source Code</button>
-    <button id="saveCodeButton">Save Code</button>
-  </div>
+  <div id="main-box"></div>
+  <button class="button" id="discord-button">Discord</button>
+  <button class="button">test</button>
+  <button class="button">test</button>
+  <div id="close-button">X</div>
 
   <script>
-    var uiContainer = document.getElementById('uiContainer');
-    var isDragging = false;
-    var dragOffsetX = 0;
-    var dragOffsetY = 0;
-
-    uiContainer.addEventListener('mousedown', startDrag);
-    uiContainer.addEventListener('touchstart', startDrag);
-
-    document.addEventListener('mousemove', drag);
-    document.addEventListener('touchmove', drag);
-
-    document.addEventListener('mouseup', endDrag);
-    document.addEventListener('touchend', endDrag);
-
-    var showScriptButton = document.getElementById('showScriptButton');
-    showScriptButton.addEventListener('click', function() {
-      var scriptContent = document.documentElement.innerHTML;
-      alert(scriptContent);
+    document.getElementById("close-button").addEventListener("click", function() {
+      var guiElement = document.getElementById("main-box");
+      guiElement.style.display = "none";
     });
 
-    var copyCodeButton = document.getElementById('copyCodeButton');
-    copyCodeButton.addEventListener('click', function() {
-      var sourceCode = document.documentElement.innerHTML;
-      copyToClipboard(sourceCode);
-      alert('Source code copied to clipboard!');
+    document.getElementById("discord-button").addEventListener("click", function() {
+      window.open("https://discord.gg/d5PQC3tqds", "_blank");
     });
-
-    var saveCodeButton = document.getElementById('saveCodeButton');
-    saveCodeButton.addEventListener('click', function() {
-      var sourceCode = document.documentElement.innerHTML;
-      var codePage = window.open();
-      codePage.document.open();
-      codePage.document.write('<pre>' + sourceCode + '</pre>');
-      codePage.document.close();
-    });
-
-    function startDrag(event) {
-      isDragging = true;
-      var clientX = event.clientX || event.touches[0].clientX;
-      var clientY = event.clientY || event.touches[0].clientY;
-      dragOffsetX = clientX - uiContainer.offsetLeft;
-      dragOffsetY = clientY - uiContainer.offsetTop;
-    }
-
-    function drag(event) {
-      if (!isDragging) return;
-      event.preventDefault();
-
-      var clientX = event.clientX || event.touches[0].clientX;
-      var clientY = event.clientY || event.touches[0].clientY;
-
-      var newLeft = clientX - dragOffsetX;
-      var newTop = clientY - dragOffsetY;
-
-      uiContainer.style.left = newLeft + 'px';
-      uiContainer.style.top = newTop + 'px';
-    }
-
-    function endDrag() {
-      isDragging = false;
-    }
-
-    function copyToClipboard(text) {
-      var textarea = document.createElement('textarea');
-      textarea.value = text;
-      document.body.appendChild(textarea);
-      textarea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textarea);
-    }
   </script>
 </body>
 </html>
+
+
+
